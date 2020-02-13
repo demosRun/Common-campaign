@@ -1,0 +1,15 @@
+<template lang="pug">
+.news sdsd
+</template>
+
+<script>
+  module.exports = {
+    created: function () {
+
+    }
+  }
+</script>
+
+
+<style lang="less">
+</style>

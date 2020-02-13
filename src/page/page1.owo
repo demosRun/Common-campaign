@@ -1,0 +1,69 @@
+<template lang="pug">
+.home
+  .tab-bar#tabBar
+    go.item(route="news") 要问
+    go.item(route="epidemic") 疫情
+    go.item(route="picture") 图片
+    go.item(route="video") 视频
+    go.item(route="people") 人物
+    .item(o-tap="openMenu") 展开^
+  view.router(name="content")
+    route(name="news" src="./src/route/news.owo")
+    route(name="epidemic" src="./src/route/epidemic.owo")
+    route(name="picture" src="./src/route/picture.owo")
+    route(name="video" src="./src/route/video.owo")
+    route(name="people" src="./src/route/people.owo")
+</template>
+
+<script>
+  module.exports = {
+    created: function () {
+
+    },
+    openMenu: function () {
+      const tabBar = this.$el.getElementsByClassName('tab-bar')[0]
+      // 判断是否打开
+      if (tabBar.classList.contains('open')) {
+        this.$target.innerHTML = '展开^'
+        tabBar.classList.remove('open')
+      } else {
+        this.$target.innerHTML = '收缩^'
+        tabBar.classList.add('open')
+      }
+      console.log()
+    }
+  }
+</script>
+
+
+<style lang="less">
+.home {
+  min-height: 100vh;
+  background-image: url('@|bg.jpg|');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+.tab-bar {
+  height: 40px;
+  line-height: 40px;
+  background-color: #00a0c8;
+  position: absolute;
+  top: 35vh;
+  width: 100%;
+  display: flex;
+  transition: height 0.2s linear;
+  box-shadow: 1px 3px 12px #037ca9;
+  .item {
+    width: 16.6%;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+  }
+  .active {
+    font-weight: bold;
+  }
+}
+.tab-bar.open {
+  height: 80px;
+}
+</style>

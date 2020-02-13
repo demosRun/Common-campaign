@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>{TAG_14226_TAG}</title>
+    <!-- 页面的元信息 -->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="white"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="filetype" content="1"/>
+    <meta name="publishedtype" content="1"/>
+    <meta name="pagetype" content="2"/>
+    <meta name="screen-orientation" content="landscape"/>
+    <meta name="x5-orientation" content="landscape"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="browsermode" content="application"/>
+    <meta name="x5-page-mode" content="app"/>
+    
+      <!-- 页面主样式文件 -->
+      <link charset="utf-8"  rel="stylesheet" href="./static/css/owo.main.css">
+      
+    <!-- 附属css文件 -->
+    <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
+      
+  </head>
+  <body>
+    <!-- 页面区域 -->
+    <!-- 页面[page1]-->
+    <div class="home page" template="page1"><div class="tab-bar" id="tabBar"><div class="owo-go item" route="news">要问</div><div class="owo-go item" route="epidemic">疫情</div><div class="owo-go item" route="picture">图片</div><div class="owo-go item" route="video">视频</div><div class="owo-go item" route="people">人物</div><div class="item" o-tap="openMenu">展开^</div></div><div class="router" view="content"><div class="news" route="news">sdsd</div><div class="epidemic" route="epidemic">epidemic</div><div class="picture" route="picture">picture</div><div class="video" route="video">video</div><div class="people" route="people">people</div></div></div>
+    
+
+    <script src="http://tools.people.com.cn/libs/jquery/1.11.1/jquery-1.11.1.min.js" type="text/javascript"  charset="UTF-8"></script>
+    <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
+<script src="./static/js/owo.main.js" type="text/javascript" charset="UTF-8"></script>
+<script>/*
+  存储每个页面的函数
+  键名：页面名称
+  键值：方法列表
+*/
+owo.phoneEnter = "null";
+owo.script = {
+  "page1": {
+    "openMenu": function openMenu() {
+      var tabBar = this.$el.getElementsByClassName('tab-bar')[0]; // 判断是否打开
+
+      if (tabBar.classList.contains('open')) {
+        this.$target.innerHTML = '展开^';
+        tabBar.classList.remove('open');
+      } else {
+        this.$target.innerHTML = '收缩^';
+        tabBar.classList.add('open');
+      }
+
+      console.log();
+    },
+    "view": {
+      "content": [{
+        "_name": "news"
+      }, {
+        "_name": "epidemic"
+      }, {
+        "_name": "picture"
+      }, {
+        "_name": "video"
+      }, {
+        "_name": "people"
+      }]
+    }
+  }
+};</script>
+  </body>
+</html>

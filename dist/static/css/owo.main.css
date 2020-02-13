@@ -1,0 +1,89 @@
+body, html, .page, .page-box {
+  padding: 0;
+  margin: 0;
+}
+
+.owo-animation {
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.owo-animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.owo-animation-forward {
+  z-index: 99;
+}
+
+img {
+  border: none;
+}
+
+/* 清除浮动 */
+.clear:after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+
+
+
+
+
+.home {
+  min-height: 100vh;
+  background-image: url('../resource/bg.jpg');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.tab-bar {
+  height: 40px;
+  line-height: 40px;
+  background-color: #00a0c8;
+  position: absolute;
+  top: 35vh;
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-transition: height 0.2s linear;
+  transition: height 0.2s linear;
+  box-shadow: 1px 3px 12px #037ca9;
+}
+
+.tab-bar .item {
+  width: 16.6%;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+}
+
+.tab-bar .active {
+  font-weight: bold;
+}
+
+.tab-bar.open {
+  height: 80px;
+}
+
