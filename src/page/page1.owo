@@ -1,69 +1,71 @@
 <template lang="pug">
-.home
-  .tab-bar#tabBar
-    go.item(route="news") 要问
-    go.item(route="epidemic") 疫情
-    go.item(route="picture") 图片
-    go.item(route="video") 视频
-    go.item(route="people") 人物
-    .item(o-tap="openMenu") 展开^
-  view.router(name="content")
-    route(name="news" src="./src/route/news.owo")
-    route(name="epidemic" src="./src/route/epidemic.owo")
-    route(name="picture" src="./src/route/picture.owo")
-    route(name="video" src="./src/route/video.owo")
-    route(name="people" src="./src/route/people.owo")
+.page-1
+  img.so-4#ribbon(src="@|page1-4.png|")
+  img.so-3#leftHand(src="@|page1-3.png|")
+  img.so-2#rightHand(src="@|page1-2.png|")
+  img.so-7#button(src="@|page1-7.png|" o-animation="shrink" o-tap="toPage2")
+  img.so-5#text(src="@|page1-5.png|")
+  img.logo(src="@|logo.png|")
 </template>
 
 <script>
   module.exports = {
     created: function () {
-
+      console.log(owo.id.leftHand)
+      owo.tool.animate('fadeInLeft', owo.id.leftHand, 800)
+      owo.tool.animate('fadeInRight', owo.id.rightHand, 800)
+      owo.tool.animate('fadeIn', owo.id.ribbon, 2500)
+      owo.tool.animate('zoomIn', owo.id.text, 3000)
+      // owo.tool.animate('slideInUp', owo.id.button, 2000)
+      // 预加载海报
+      owo.script.page3.init()
     },
-    openMenu: function () {
-      const tabBar = this.$el.getElementsByClassName('tab-bar')[0]
-      // 判断是否打开
-      if (tabBar.classList.contains('open')) {
-        this.$target.innerHTML = '展开^'
-        tabBar.classList.remove('open')
-      } else {
-        this.$target.innerHTML = '收缩^'
-        tabBar.classList.add('open')
-      }
-      console.log()
+    toPage2: function () {
+      owo.go({
+        page: "page3",
+        noBack: true,
+        ani: 'moveToLeft/moveFromRight/moveToRight/moveFromLeft'
+      })
     }
   }
 </script>
 
 
 <style lang="less">
-.home {
-  min-height: 100vh;
-  background-image: url('@|bg.jpg|');
-  background-size: 100% auto;
-  background-repeat: no-repeat;
+.page-1 {
+  background-image: url('@|bg2.jpg|');
 }
-.tab-bar {
-  height: 40px;
-  line-height: 40px;
-  background-color: #00a0c8;
+.so-4 {
   position: absolute;
-  top: 35vh;
-  width: 100%;
-  display: flex;
-  transition: height 0.2s linear;
-  box-shadow: 1px 3px 12px #037ca9;
-  .item {
-    width: 16.6%;
-    text-align: center;
-    color: white;
-    font-size: 16px;
-  }
-  .active {
-    font-weight: bold;
-  }
+  left: 0px;
+  z-index: 4;
+  top: 494px
 }
-.tab-bar.open {
-  height: 80px;
+.so-3 {
+  position: absolute;
+  left: 0px;
+  z-index: 3;
+  top: 492px
+}
+.so-2 {
+  position: absolute;
+  left: 197px;
+  z-index: 2;
+  top: 628px
+}
+.so-7 {
+  position: absolute;
+  left: 275px;
+  z-index: 7;
+  top: 1305px
+}
+.so-5 {
+  position: absolute;
+  left: 81px;
+  z-index: 5;
+  top: 951px
+}
+.so-3, .so-2 {
+  animation-duration: 2s;
 }
 </style>

@@ -3,6 +3,7 @@
 	"root": "/src",
 	"title": "{TAG_14226_TAG}",
 	"scheme": [],
+	"container": "scale-box",
 	"outFolder": "./dist",
 	"resourceFolder": "./src/resource",
 	"headList": [
@@ -77,6 +78,18 @@
 			"src": "http://tools.people.com.cn/libs/jquery/1.11.1/jquery-1.11.1.min.js"
 		},
 		{
+			"name": "modernizr.custom",
+			"src": "./src/resource/modernizr.custom.js"
+		},
+		{
+			"name": "draggabilly.pkgd.min",
+			"src": "./src/resource/draggabilly.pkgd.min.js"
+		},
+		{
+			"name": "elastiStack",
+			"src": "./src/resource/elastiStack.js"
+		},
+		{
 			"name": "main",
 			"src": "./src/main.js",
 			"resource": true
@@ -87,12 +100,36 @@
 			"name": "main",
 			"src": "./src/main.css",
 			"resource": true
+		},
+		{
+			"name": "component",
+			"src": "./src/resource/component.css"
 		}
 	],
 	"pageList": [
 		{
+			"name": "loading",
+			"src": "./src/page/loading.owo",
+			"type": "page"
+		},
+		{
+			"name": "page2",
+			"src": "/src/page/page2.owo",
+			"type": "page"
+		},
+		{
 			"name": "page1",
 			"src": "./src/page/page1.owo",
+			"type": "page"
+		},
+		{
+			"name": "page3",
+			"src": "/src/page/page3.owo",
+			"type": "page"
+		},
+		{
+			"name": "page4",
+			"src": "/src/page/page4.owo",
 			"type": "page"
 		}
 	],
@@ -132,7 +169,8 @@
 				"embedSize": 0,
 				"merge": false,
 				"allAnimate": false
-			}
+			},
+			"startAtHome": true
 		}
 	}
 }

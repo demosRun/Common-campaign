@@ -1,0 +1,188 @@
+<template lang="pug">
+.page-3
+  img.logo(src="@|logo.png|")
+  img.heart(src="@|page2-4.png|" o-animation="shrink")
+  ul.elasticstack#elasticstack
+  //- 向前向后按钮
+  .tool-box.at-home
+    img.home(src="@|home.png|" o-tap="reload")
+    img.foward(src="@|forward.png|" o-tap="foward")
+    img.next(src="@|next.png|" o-tap="next")
+  .num
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      imgList: [
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+        '@|show.jpg|',
+      ],
+      cardNum: null,
+      ElastiStack: null
+    },
+    created: function () {
+      this.init()
+      setTimeout(() => {
+        this.reload()
+      }, 0);
+    },
+    init: function () {
+      if (this.data.showList) return
+      this.data.cardNum = this.data.imgList.length
+      if (this.data.imgList.length > 10) {
+        this.data.showList = this.data.imgList
+        this.data.cardNum  = 10
+      }
+      this.data.showList = []
+      let useList = []
+      console.log(this.data.imgList.length)
+      while (this.data.showList.length < this.data.cardNum) {
+        const num = this.randomNum(0, this.data.imgList.length - 1)
+        if (!useList.includes(num)) {
+          useList.push(num)
+          this.data.showList.push(this.data.imgList[num])
+        }
+        
+      }
+      // 添加海报
+      let newHtml = ''
+      this.data.showList.forEach(element => {
+        newHtml += `<li><img class="handle" src="${element}"></img></li>`
+      });
+      owo.id.elasticstack.innerHTML = newHtml
+      console.log(this.data.showList)
+    },
+    randomNum: function(minNum, maxNum) { 
+      switch(arguments.length){ 
+        case 1: 
+          return parseInt(Math.random()*minNum+1,10); 
+          break; 
+        case 2: 
+          return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+          break; 
+        default: 
+          return 0; 
+          break; 
+      }
+    },
+    foward: function () {
+      new Audio("@|button.wav|").play()
+      this.data.ElastiStack.last()
+    },
+    next: function () {
+      new Audio("@|button.wav|").play()
+      this.data.ElastiStack.next()
+    },
+    reload: function () {
+      owo.query('.num')[0].innerText = `1 / ${this.data.cardNum}`
+      this.data.ElastiStack = new ElastiStack(document.getElementById('elasticstack'), {
+        loop: false,
+        handle: ".handle",
+        ratioX: parseInt(document.body.clientWidth * 0.02),
+        ratioZ: parseInt(document.body.clientWidth * -0.02),
+        distDragBack: 100,
+        distDragMax: 200,
+        // pc端禁止拖拽
+        enable: true,
+        atEnd: () => {
+          owo.go({
+            page: "page4",
+            noBack: true,
+            ani: 'moveToLeft/moveFromRight/moveToRight/moveFromLeft'
+          })
+        },
+        atStart: () => {
+          owo.tool.toast('已经是最前了!');
+        },
+        onUpdateStack: (activeIndex) => {
+          if (activeIndex === 0) {
+            owo.query('.tool-box')[0].classList.add('at-home')
+          } else {
+            owo.query('.tool-box')[0].classList.remove('at-home')
+          }
+          owo.query('.num')[0].innerText = `${activeIndex + 1} / ${this.data.cardNum}`
+          console.log(activeIndex)
+        }
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+.page-3 {
+  background-image: url('@|bg4.jpg|');
+}
+ul {
+  width: 600px;
+  height: 1080px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  li {
+    height: 1047px;
+    width: 621px;
+    background-image: url('@|show-bg.png|');
+    .handle {
+      width: 553px;
+      height: 984px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      position: absolute;
+    }
+  }
+}
+.tool-box {
+  position: absolute;
+  bottom: 180px;
+  height: 50px;
+  width: 90%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+}
+.at-home {
+  .home {
+    display: none;
+  }
+}
+.num {
+  position: absolute;
+  font-size: 34px;
+  top: 11%;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: #39847d;
+}
+.heart {
+  left: 111px;
+  top: 185px;
+}
+</style>

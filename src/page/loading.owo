@@ -1,0 +1,126 @@
+<template lang="pug">
+.loading-box
+  img.loading(src="@|heart.gif|")
+  .loading-bar
+    .num-bar
+  span.text Loading
+  .num 50%
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      imgList: [
+        '@|bg1.jpg|',
+        '@|forward.png|',
+        '@|home.png|',
+        '@|next.png|',
+        '@|page1-2.png|',
+        '@|page1-3.png|',
+        '@|page1-4.png|',
+        '@|page1-5.png|',
+        '@|page1-6.png|',
+        '@|page1-7.png|',
+        '@|page2-2.png|',
+        '@|page2-3.png|',
+        '@|page4-2.png|',
+        '@|page4-3.png|',
+        '@|page4-4.png|',
+        '@|bg2.jpg|',
+        '@|share.jpg|',
+        '@|bg3.jpg|',
+        '@|bg4.jpg|',
+        '@|bg5.jpg|'
+      ]
+    },
+    show: function () {
+      const mum = owo.query('.num')[0]
+      const numBar = owo.query('.num-bar')[0]
+      this.preloadImages(this.data.imgList, (e) => {
+        setTimeout(() => {
+          owo.go({noBack: true,page: "page2"})
+        }, 500)
+      }, (num) => {
+        numBar.style.width = num + '%'
+        mum.innerHTML = num + '%'
+      })
+    },
+    preloadImage: function (src, successFn) {
+      var image = new Image()
+      image.src = src
+      image.onload = function () {
+        successFn && successFn(src)
+      }
+      image.onerror = function (error) {
+        successFn && successFn(src)
+      }
+    },
+    preloadImages: function (srcs, doneFn, progressFn) {
+      if (!Array.isArray(srcs)) {
+        console.log('第一个参数只能是一个数组')
+      } else {
+        var allCount = srcs.length
+        var doneCount = 0
+        srcs.forEach((srcItem) => {
+          this.preloadImage(srcItem, function () {
+            doneCount++
+            progressFn && progressFn(Math.ceil(100 * doneCount / allCount))
+            if (doneCount === allCount) {
+              doneFn && doneFn()
+            }
+          })
+        })
+      }
+    }
+  }
+</script>
+
+
+<style lang="less">
+.loading-box {
+  background-image: url('@|bg1.jpg|');
+}
+.loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10%;
+  bottom: 0;
+  margin: auto;
+}
+.loading-bar {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  height: 14px;
+  background-color: white;
+  width: 80%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  border-radius: 15px;
+  padding: 10px;
+}
+.num-bar {
+  background-color: #68cbae;
+  height: 14px;
+  border-radius: 7px;
+  width: 0%;
+}
+.num, .text {
+  position: absolute;
+  top: 0%;
+  bottom: -8%;
+  margin: auto;
+  line-height: 50px;
+  height: 50px;
+  font-size: 36px;
+  width: 100%;
+  text-align: center;
+  color: #68cbae;
+  font-weight: bold;
+}
+.text {
+  bottom: -14%;
+}
+</style>

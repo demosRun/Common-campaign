@@ -25,15 +25,27 @@
       
     <!-- 附属css文件 -->
     <link rel="stylesheet" href="./static/css/main.css" charset="utf-8">
+    <link rel="stylesheet" href="./static/css/component.css" charset="utf-8">
       
   </head>
   <body>
-    <!-- 页面区域 -->
+    <div class="scale-box"><!-- 页面区域 -->
+    <!-- 页面[loading]-->
+    <div class="loading-box page" template="loading" style="display: none;"><img class="loading" src="./static/resource/heart.gif"><div class="loading-bar"><div class="num-bar"></div></div><span class="text">Loading</span><div class="num">50%</div></div>
+    <!-- 页面[page2]-->
+    <div class="page-2 page" template="page2" style="display: none;"><div class="so-3" id="mainText" style="width: 565px; height: 0; background-image: url(./static/resource/page2-3.png)"></div><img class="so-2 owo-animation-shrink" src="./static/resource/page2-2.png" o-animation="shrink" o-tap="toPage3"><img class="so-4 owo-animation-shrink" src="./static/resource/page2-4.png" o-animation="shrink"><img class="logo" src="./static/resource/logo.png"></div>
     <!-- 页面[page1]-->
-    <div class="home page" template="page1"><div class="tab-bar" id="tabBar"><div class="owo-go item" route="news">要问</div><div class="owo-go item" route="epidemic">疫情</div><div class="owo-go item" route="picture">图片</div><div class="owo-go item" route="video">视频</div><div class="owo-go item" route="people">人物</div><div class="item" o-tap="openMenu">展开^</div></div><div class="router" view="content"><div class="news" route="news">sdsd</div><div class="epidemic" route="epidemic">epidemic</div><div class="picture" route="picture">picture</div><div class="video" route="video">video</div><div class="people" route="people">people</div></div></div>
+    <div class="page-1 page" template="page1" style="display: none;"><img class="so-4" id="ribbon" src="./static/resource/page1-4.png"><img class="so-3" id="leftHand" src="./static/resource/page1-3.png"><img class="so-2" id="rightHand" src="./static/resource/page1-2.png"><img class="so-7 owo-animation-shrink" id="button" src="./static/resource/page1-7.png" o-animation="shrink" o-tap="toPage2"><img class="so-5" id="text" src="./static/resource/page1-5.png"><img class="logo" src="./static/resource/logo.png"></div>
+    <!-- 页面[page3]-->
+    <div class="page-3 page" template="page3" style="display: none;"><img class="logo" src="./static/resource/logo.png"><img class="heart owo-animation-shrink" src="./static/resource/page2-4.png" o-animation="shrink"><ul class="elasticstack" id="elasticstack"></ul><div class="tool-box at-home"><img class="home" src="./static/resource/home.png" o-tap="reload"><img class="foward" src="./static/resource/forward.png" o-tap="foward"><img class="next" src="./static/resource/next.png" o-tap="next"></div><div class="num"></div></div>
+    <!-- 页面[page4]-->
+    <div class="page-4 page" template="page4" style="display: none;"><img class="so-2" src="./static/resource/page4-2.png" o-tap="location.replace('')"><a class="so-3" href="http://www.people.com.cn/" style="width: 204px; height: 59px; background-image: url(./static/resource/page4-3.png)"></a><img class="so-4" src="./static/resource/page4-4.png"><!-- 真正可以触摸的背景--><img class="share" src="./static/resource/share.jpg"></div></div>
     
 
     <script src="http://tools.people.com.cn/libs/jquery/1.11.1/jquery-1.11.1.min.js" type="text/javascript"  charset="UTF-8"></script>
+    <script src="./static/js/modernizr.custom.js" type="text/javascript"  charset="UTF-8"></script>
+    <script src="./static/js/draggabilly.pkgd.min.js" type="text/javascript"  charset="UTF-8"></script>
+    <script src="./static/js/elastiStack.js" type="text/javascript"  charset="UTF-8"></script>
     <script src="./static/js/main.js" type="text/javascript"  charset="UTF-8"></script><!-- 框架script代码 --><!-- 框架script文件 -->
 <script src="./static/js/owo.main.js" type="text/javascript" charset="UTF-8"></script>
 <script>/*
@@ -43,34 +55,216 @@
 */
 owo.phoneEnter = "null";
 owo.script = {
-  "page1": {
-    "openMenu": function openMenu() {
-      var tabBar = this.$el.getElementsByClassName('tab-bar')[0]; // 判断是否打开
+  "loading": {
+    "data": {
+      "imgList": ["./static/resource/bg1.jpg", "./static/resource/forward.png", "./static/resource/home.png", "./static/resource/next.png", "./static/resource/page1-2.png", "./static/resource/page1-3.png", "./static/resource/page1-4.png", "./static/resource/page1-5.png", "./static/resource/page1-6.png", "./static/resource/page1-7.png", "./static/resource/page2-2.png", "./static/resource/page2-3.png", "./static/resource/page4-2.png", "./static/resource/page4-3.png", "./static/resource/page4-4.png", "./static/resource/bg2.jpg", "./static/resource/share.jpg", "./static/resource/bg3.jpg", "./static/resource/bg4.jpg", "./static/resource/bg5.jpg"]
+    },
+    "show": function show() {
+      var mum = owo.query('.num')[0];
+      var numBar = owo.query('.num-bar')[0];
+      this.preloadImages(this.data.imgList, function (e) {
+        setTimeout(function () {
+          owo.go({
+            noBack: true,
+            page: "page2"
+          });
+        }, 500);
+      }, function (num) {
+        numBar.style.width = num + '%';
+        mum.innerHTML = num + '%';
+      });
+    },
+    "preloadImage": function preloadImage(src, successFn) {
+      var image = new Image();
+      image.src = src;
 
-      if (tabBar.classList.contains('open')) {
-        this.$target.innerHTML = '展开^';
-        tabBar.classList.remove('open');
+      image.onload = function () {
+        successFn && successFn(src);
+      };
+
+      image.onerror = function (error) {
+        successFn && successFn(src);
+      };
+    },
+    "preloadImages": function preloadImages(srcs, doneFn, progressFn) {
+      var _this = this;
+
+      if (!Array.isArray(srcs)) {
+        console.log('第一个参数只能是一个数组');
       } else {
-        this.$target.innerHTML = '收缩^';
-        tabBar.classList.add('open');
+        var allCount = srcs.length;
+        var doneCount = 0;
+        srcs.forEach(function (srcItem) {
+          _this.preloadImage(srcItem, function () {
+            doneCount++;
+            progressFn && progressFn(Math.ceil(100 * doneCount / allCount));
+
+            if (doneCount === allCount) {
+              doneFn && doneFn();
+            }
+          });
+        });
+      }
+    }
+  },
+  "page2": {
+    "created": function created() {
+      setTimeout(function () {
+        owo.id.mainText.style.height = '40px';
+        setTimeout(function () {
+          owo.id.mainText.style.height = '200px';
+          setTimeout(function () {
+            owo.id.mainText.style.height = '380px';
+            setTimeout(function () {
+              owo.id.mainText.style.height = '580px';
+              setTimeout(function () {
+                owo.id.mainText.style.height = '660px';
+                setTimeout(function () {
+                  owo.id.mainText.style.height = '898px';
+                }, 1400);
+              }, 1400);
+            }, 1400);
+          }, 1400);
+        }, 1400);
+      }, 1400);
+    },
+    "toPage3": function toPage3() {
+      if (music == null) {
+        music = new Audio("./static/resource/bg.mp3");
+        music.loop = true;
+        music.play();
       }
 
-      console.log();
-    },
-    "view": {
-      "content": [{
-        "_name": "news"
-      }, {
-        "_name": "epidemic"
-      }, {
-        "_name": "picture"
-      }, {
-        "_name": "video"
-      }, {
-        "_name": "people"
-      }]
+      owo.go({
+        page: "page1",
+        noBack: true,
+        ani: 'moveToLeft/moveFromRight/moveToRight/moveFromLeft'
+      });
     }
-  }
+  },
+  "page1": {
+    "created": function created() {
+      console.log(owo.id.leftHand);
+      owo.tool.animate('fadeInLeft', owo.id.leftHand, 800);
+      owo.tool.animate('fadeInRight', owo.id.rightHand, 800);
+      owo.tool.animate('fadeIn', owo.id.ribbon, 2500);
+      owo.tool.animate('zoomIn', owo.id.text, 3000); // owo.tool.animate('slideInUp', owo.id.button, 2000)
+      // 预加载海报
+
+      owo.script.page3.init();
+    },
+    "toPage2": function toPage2() {
+      owo.go({
+        page: "page3",
+        noBack: true,
+        ani: 'moveToLeft/moveFromRight/moveToRight/moveFromLeft'
+      });
+    }
+  },
+  "page3": {
+    "data": {
+      "imgList": ["./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg", "./static/resource/show.jpg"],
+      "cardNum": null,
+      "ElastiStack": null
+    },
+    "created": function created() {
+      var _this2 = this;
+
+      this.init();
+      setTimeout(function () {
+        _this2.reload();
+      }, 0);
+    },
+    "init": function init() {
+      if (this.data.showList) return;
+      this.data.cardNum = this.data.imgList.length;
+
+      if (this.data.imgList.length > 10) {
+        this.data.showList = this.data.imgList;
+        this.data.cardNum = 10;
+      }
+
+      this.data.showList = [];
+      var useList = [];
+      console.log(this.data.imgList.length);
+
+      while (this.data.showList.length < this.data.cardNum) {
+        var num = this.randomNum(0, this.data.imgList.length - 1);
+
+        if (!useList.includes(num)) {
+          useList.push(num);
+          this.data.showList.push(this.data.imgList[num]);
+        }
+      } // 添加海报
+
+
+      var newHtml = '';
+      this.data.showList.forEach(function (element) {
+        newHtml += "<li><img class=\"handle\" src=\"" + element + "\"></img></li>";
+      });
+      owo.id.elasticstack.innerHTML = newHtml;
+      console.log(this.data.showList);
+    },
+    "randomNum": function randomNum(minNum, maxNum) {
+      switch (arguments.length) {
+        case 1:
+          return parseInt(Math.random() * minNum + 1, 10);
+          break;
+
+        case 2:
+          return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+          break;
+
+        default:
+          return 0;
+          break;
+      }
+    },
+    "foward": function foward() {
+      new Audio("./static/resource/button.wav").play();
+      this.data.ElastiStack.last();
+    },
+    "next": function next() {
+      new Audio("./static/resource/button.wav").play();
+      this.data.ElastiStack.next();
+    },
+    "reload": function reload() {
+      var _this3 = this;
+
+      owo.query('.num')[0].innerText = "1 / " + this.data.cardNum;
+      this.data.ElastiStack = new ElastiStack(document.getElementById('elasticstack'), {
+        loop: false,
+        handle: ".handle",
+        ratioX: parseInt(document.body.clientWidth * 0.02),
+        ratioZ: parseInt(document.body.clientWidth * -0.02),
+        distDragBack: 100,
+        distDragMax: 200,
+        // pc端禁止拖拽
+        enable: true,
+        atEnd: function atEnd() {
+          owo.go({
+            page: "page4",
+            noBack: true,
+            ani: 'moveToLeft/moveFromRight/moveToRight/moveFromLeft'
+          });
+        },
+        atStart: function atStart() {
+          owo.tool.toast('已经是最前了!');
+        },
+        onUpdateStack: function onUpdateStack(activeIndex) {
+          if (activeIndex === 0) {
+            owo.query('.tool-box')[0].classList.add('at-home');
+          } else {
+            owo.query('.tool-box')[0].classList.remove('at-home');
+          }
+
+          owo.query('.num')[0].innerText = activeIndex + 1 + " / " + _this3.data.cardNum;
+          console.log(activeIndex);
+        }
+      });
+    }
+  },
+  "page4": {}
 };</script>
   </body>
 </html>

@@ -1,0 +1,72 @@
+<template lang="pug">
+.page-2
+  .so-3#mainText(style="width: 565px; height: 0; background-image: url(@|page2-3.png|)")
+  img.so-2(src="@|page2-2.png|" o-animation="shrink"  o-tap="toPage3")
+  img.so-4(src="@|page2-4.png|" o-animation="shrink")
+  //- img.heart(src="@|heart.gif|")
+  img.logo(src="@|logo.png|")
+</template>
+
+<script>
+  module.exports = {
+    created: function () {
+      setTimeout(() => {
+        owo.id.mainText.style.height = '40px'
+        setTimeout(() => {
+          owo.id.mainText.style.height = '200px'
+          setTimeout(() => {
+            owo.id.mainText.style.height = '380px'
+            setTimeout(() => {
+              owo.id.mainText.style.height = '580px'
+              setTimeout(() => {
+                owo.id.mainText.style.height = '660px'
+                setTimeout(() => {
+                  owo.id.mainText.style.height = '898px'
+                }, 1400);
+              }, 1400);
+            }, 1400);
+          }, 1400);
+        }, 1400);
+      }, 1400);
+    },
+    toPage3: function () {
+      if (music == null) {
+        music = new Audio("@|bg.mp3|")
+        music.loop = true
+        music.play()
+      }
+      owo.go({
+        page: "page1",
+        noBack: true,
+        ani: 'moveToLeft/moveFromRight/moveToRight/moveFromLeft'
+      })
+    }
+  }
+</script>
+
+<style lang="less">
+.page-2 {
+  background-image: url('@|bg3.jpg|');
+}
+.so-3 {
+  position: absolute;
+  left: 100px;
+  z-index: 3;
+  top: 312px;
+  height: 0;
+  transition: height 0.6s linear;
+}
+.so-2 {
+  position: absolute;
+  left: 601px;
+  z-index: 2;
+  top: 1294px
+}
+.so-4 {
+  position: absolute;
+  left: 81px;
+  z-index: 4;
+  top: 216px
+}
+
+</style>

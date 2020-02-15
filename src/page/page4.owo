@@ -1,0 +1,41 @@
+<template lang="pug">
+.page-4
+  img.so-2(src="@|page4-2.png|" o-tap="location.replace('')")
+  a.so-3(href="http://www.people.com.cn/" style="width: 204px; height: 59px; background-image: url(@|page4-3.png|)")
+  img.so-4(src="@|page4-4.png|")
+  // 真正可以触摸的背景
+  img.share(src="@|share.jpg|")
+</template>
+
+<style lang="less">
+.page-4 {
+  background-image: url('@|bg5.jpg|');
+}
+.so-2 {
+  position: absolute;
+  left: 41px;
+  z-index: 2;
+  top: 1301px;
+  z-index: 9;
+}
+.so-3 {
+  position: absolute;
+  left: 274px;
+  z-index: 3;
+  top: 1301px;
+  display: block;
+  z-index: 9;
+}
+.so-4 {
+  position: absolute;
+  left: 506px;
+  z-index: 4;
+  top: 1301px;
+  user-select: none;
+  pointer-events: none;
+}
+.share {
+  opacity: 0;
+  z-index: 9;
+}
+</style>
